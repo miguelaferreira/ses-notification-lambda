@@ -1,0 +1,71 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.1"
+    id("io.micronaut.application") version "3.2.2"
+}
+
+version = "0.1"
+group = "ses.notification.lambda"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut.email:micronaut-email-amazon-ses")
+//    implementation("io.micronaut.email:micronaut-email-template")
+    implementation("software.amazon.awssdk:sts")
+    implementation("io.micronaut.aws:micronaut-aws-sdk-v2")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("io.micronaut.reactor:micronaut-reactor-http-client")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    compileOnly("org.projectlombok:lombok")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    testImplementation("org.assertj:assertj-core")
+    implementation("io.micronaut:micronaut-validation")
+
+    implementation("io.micronaut.aws:micronaut-function-aws")
+
+    implementation("io.micronaut.aws:micronaut-function-aws-custom-runtime")
+
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
+
+    testImplementation "org.testcontainers:localstack:1.16.3"
+    testImplementation "org.testcontainers:junit-jupiter:1.16.3"
+//    testImplementation 'cloud.localstack:localstack-utils:0.2.20'
+    testImplementation("io.micronaut.aws:micronaut-aws-sdk-v1") // needed by test containers + localstack
+}
+
+
+application {
+    mainClass.set("ses.notification.lambda.BookLambdaRuntime")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+tasks.named("assemble") {
+    dependsOn(":shadowJar")
+}
+
+micronaut {
+    runtime("lambda")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("ses.notification.lambda.*")
+    }
+}
+
+test {
+    // Load environment variables for tests
+    environment "AWS_PROFILE", System.getenv('AWS_PROFILE')
+    environment "REPORTING_FROM", System.getenv('REPORTING_FROM')
+    environment "REPORTING_TO", System.getenv('REPORTING_TOS')
+}

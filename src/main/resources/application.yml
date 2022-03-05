@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: sesNotificationLambda
+
+reporting:
+  from: "test-source@email.com"
+  to: "test-tagret@email.com"
