@@ -1,3 +1,7 @@
+[![Continuous Integration](https://github.com/miguelaferreira/ses-notification-lambda/actions/workflows/development.yml/badge.svg)](https://github.com/miguelaferreira/ses-notification-lambda/actions/workflows/development.yml)
+[![Continuous Delivery](https://github.com/miguelaferreira/ses-notification-lambda/actions/workflows/create-release.yaml/badge.svg)](https://github.com/miguelaferreira/ses-notification-lambda/actions/workflows/create-release.yaml)
+[![CodeQL](https://github.com/miguelaferreira/ses-notification-lambda/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/miguelaferreira/ses-notification-lambda/actions/workflows/codeql-analysis.yml)
+
 # ses-notification-lambda
 
 An AWS Lambda function to process SES notifications and report them via email. SES requires that users setup
@@ -31,7 +35,7 @@ The deployable for the lambda is the jar with all dependencies (named after `ses
 
 ### Deploy the lambda function
 
-Deploy the jar file under `build/libs/ses-notification-lambda-0.1-all.jar` to an AWS Lambda function.
+Deploy the jar file (`ses-notification-lambda-vA.B.C-all.jar`) to the AWS Lambda function.
 
 ### Configure SES to deliver notifications to an SNS topic
 
