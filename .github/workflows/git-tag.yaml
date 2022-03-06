@@ -1,0 +1,26 @@
+name: "Tag git"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    name: "Create git tag"
+    runs-on: ubuntu-latest
+    env:
+      tooling_dir: ${{ github.workspace }}/../tooling
+      ssh_dir: /home/runner/.ssh
+    if: "!contains(github.event.head_commit.message, 'Increment version')"
+    steps:
+      - name: Checkout source
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.34.0
+        id: tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_PAT_REPO_ORG_ADMIN }}
+          WITH_V: true
