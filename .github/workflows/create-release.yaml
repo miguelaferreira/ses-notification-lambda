@@ -79,7 +79,7 @@ jobs:
           EOF
 
           cd artifacts/artifact
-          for file in *.sha256sum; do echo "- $(cat "${file}")" >> "../${release_body_file}"; done
+          for file in *.sha256sum; do echo "- $(cat "${file}")" >> "../../${release_body_file}"; done
           cd -
 
           cat <<'EOF' >> "${release_body_file}"
