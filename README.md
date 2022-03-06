@@ -24,13 +24,10 @@ be `ses.notification.lambda.RequestHandler` and two environment variables:
 The from and to addresses have to be verified in SES (either by verifying a domain, or the addresses), and can even be
 the same.
 
-### Build the lambda function
+### Download a release
 
-Checkout the repository and run the following command to build the lambda function.
-
-```bash
-./gradlew assemble
-```
+Download a release from the [releases page](https://github.com/miguelaferreira/ses-notification-lambda/releases).
+The deployable for the lambda is the jar with all dependencies (named after `ses-notification-lambda-vA.B.C-all.jar`).
 
 ### Deploy the lambda function
 
