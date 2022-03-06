@@ -32,6 +32,10 @@ jobs:
         with:
           java-version: 11
           jdkFile: ${{ steps.sdkman.outputs.file }}
+      - name: "Update release version"
+        run: |
+          version=${tag_ref/refs\/tags\//}
+          sed -i build.gradle -e "s/version = \".*\"/version = \"${version}\"/"
       - name: "Gradle build"
         run: ./gradlew build
       - name: "Upload artifacts"

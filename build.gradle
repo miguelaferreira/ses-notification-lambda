@@ -3,7 +3,7 @@ plugins {
     id("io.micronaut.application") version "3.2.2"
 }
 
-version = "0.1"
+version = "latest"
 group = "ses.notification.lambda"
 
 repositories {
