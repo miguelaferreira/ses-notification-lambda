@@ -35,7 +35,10 @@ jobs:
       - name: "Update release version"
         run: |
           version=${tag_ref/refs\/tags\//}
-          sed -i build.gradle -e "s/version = \".*\"/version = \"${version}\"/"
+          sed -i -e "s/version = \".*\"/version = \"${version}\"/" build.gradle
+          cat build.gradle
+        env:
+          tag_ref: ${{ github.ref }}
       - name: "Gradle build"
         run: ./gradlew build
       - name: "Upload artifacts"
