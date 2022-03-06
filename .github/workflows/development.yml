@@ -1,0 +1,51 @@
+name: "Continuous Integration"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: "Build code"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout sources"
+        uses: actions/checkout@v2
+      - name: "Cache dependencies"
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+            ${GITHUB_WORKSPACE}/.gradle
+            ~/.sdkman
+          key: development-java11-corretto
+      - name: "Install Java"
+        uses: sdkman/sdkman-action@master
+        id: sdkman
+        with:
+          candidate: java
+          version: 11.0.14.10.1-amzn
+      - name: "Setup Java"
+        uses: actions/setup-java@v1
+        id: setup-java
+        with:
+          java-version: 11
+          jdkFile: ${{ steps.sdkman.outputs.file }}
+      - name: "Gradle build"
+        run: ./gradlew build
+      - name: "Upload Test Reports"
+        uses: actions/upload-artifact@v2.2.4
+        if: failure()
+        with:
+          name: test-reports
+          path: build/reports/tests
+          retention-days: 5
+      - name: "Publish Unit Test Results"
+        uses: EnricoMi/publish-unit-test-result-action/composite@v1
+        if: always()
+        with:
+          files: build/test-results/test/*.xml
