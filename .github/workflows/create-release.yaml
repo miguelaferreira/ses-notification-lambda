@@ -69,18 +69,18 @@ jobs:
           version=${tag_ref/refs\/tags\//}
 
           # Create sha256sum for each release file
-          cd artifacts
+          cd artifacts/artifact
           for file in *; do sha256sum "${file}" > "${file}.sha256sum"; done
-          cd ..
+          cd -
 
           # Create release text
           cat <<'EOF' > "${release_body_file}"
           ## SHA 256
           EOF
 
-          cd artifacts
+          cd artifacts/artifact
           for file in *.sha256sum; do echo "- $(cat "${file}")" >> "../${release_body_file}"; done
-          cd ..
+          cd -
 
           cat <<'EOF' >> "${release_body_file}"
 
@@ -96,7 +96,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body_path: ${{ env.release_body_file }}
-          files: artifacts/*
+          files: artifacts/artifact/*
           draft: false
           prerelease: false
         env:
