@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @Introspected
 @JsonIgnoreProperties(ignoreUnknown = true)
+public
 class SesMessageMail {
 
     private LocalDateTime timestamp;
@@ -37,7 +38,7 @@ class SesMessageMail {
     @ToString
     @Introspected
     @JsonIgnoreProperties(ignoreUnknown = true)
-    static class CommonHeaders {
+    public static class CommonHeaders {
         private String subject;
         private List<String> from;
         private List<String> to;

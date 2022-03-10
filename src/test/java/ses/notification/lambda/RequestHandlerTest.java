@@ -22,7 +22,7 @@ public class RequestHandlerTest {
         configuration.setFrom("from@email.com");
         requestHandler = new RequestHandler();
         requestHandler.setEmailService(new MockEmailService());
-        requestHandler.setNotificationReportingService(new ReportingService(configuration));
+        requestHandler.setNotificationReportingService(new EmailReportingService(configuration));
     }
 
     @AfterAll
