@@ -50,4 +50,31 @@ public class TestDataFactory {
 
         return notification;
     }
+
+    static SesBounceMessage bounceNotificationMultipleToAddresses() {
+        final SesBounceMessage message = new SesBounceMessage();
+        final SesBounceMessage.Bounce bounce = new SesBounceMessage.Bounce();
+        bounce.setBounceType("Permanent");
+        bounce.setBounceSubType("General");
+        bounce.setBouncedRecipients(List.of(
+                SesBounceMessage.BounceRecipients.builder()
+                                                 .emailAddress(TEST_1_EMAIL_COM)
+                                                 .action("failed")
+                                                 .status("5.1.1")
+                                                 .diagnosticCode("The account does not exist.")
+                                                 .build()
+        ));
+        message.setBounce(bounce);
+        final SesMessageMail mail = new SesMessageMail();
+        mail.setDestination(List.of(TEST_1_EMAIL_COM, TEST_2_EMAIL_COM));
+        final SesMessageMail.CommonHeaders commonHeaders = new SesMessageMail.CommonHeaders();
+        commonHeaders.setSubject(TEST_SUBJECT);
+        commonHeaders.setFrom(List.of(FROM_1_EMAIL_COM, FROM_2_EMAIL_COM));
+        commonHeaders.setTo(List.of(TEST_1_EMAIL_COM));
+        commonHeaders.setReplyTo(List.of(REPLY_TO_1_EMAIL_COM, REPLY_TO_2_EMAIL_COM));
+        mail.setCommonHeaders(commonHeaders);
+        message.setMail(mail);
+
+        return message;
+    }
 }

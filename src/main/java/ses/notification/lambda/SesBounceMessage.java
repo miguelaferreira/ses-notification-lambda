@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @ToString
 @Introspected
-class SesBounceMessage implements SesNotification, SesEvent {
+public class SesBounceMessage implements SesNotification, SesEvent {
 
     private Bounce bounce;
     private SesMessageMail mail;
@@ -21,7 +21,7 @@ class SesBounceMessage implements SesNotification, SesEvent {
     @Data
     @ToString
     @Introspected
-    static class Bounce {
+    public static class Bounce {
         private LocalDateTime timestamp;
         private String feedbackId;
         private String bounceType;
@@ -37,7 +37,7 @@ class SesBounceMessage implements SesNotification, SesEvent {
     @NoArgsConstructor
     @AllArgsConstructor
     @Introspected
-    static class BounceRecipients {
+    public static class BounceRecipients {
         private String emailAddress;
         private String action;
         private String status;

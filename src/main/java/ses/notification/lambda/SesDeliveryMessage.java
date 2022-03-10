@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @ToString
 @Introspected
-class SesDeliveryMessage implements SesNotification, SesEvent {
+public class SesDeliveryMessage implements SesNotification, SesEvent {
 
     private SesMessageMail mail;
     private Delivery delivery;
@@ -18,7 +18,7 @@ class SesDeliveryMessage implements SesNotification, SesEvent {
     @Data
     @ToString
     @Introspected
-    static class Delivery {
+    public static class Delivery {
         private LocalDateTime timestamp;
         private long processingTimeMillis;
         private List<String> recipients;

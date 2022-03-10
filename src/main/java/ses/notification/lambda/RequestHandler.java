@@ -3,9 +3,11 @@ package ses.notification.lambda;
 import com.amazonaws.services.lambda.runtime.events.SNSEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.micronaut.core.annotation.Introspected;
+import io.micronaut.email.Email;
 import io.micronaut.function.aws.MicronautRequestHandler;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import ses.notification.lambda.reports.ReportingService;
 
 @Slf4j
 @Introspected
@@ -16,7 +18,7 @@ public class RequestHandler extends MicronautRequestHandler<SNSEvent, String> {
     @Inject
     private EmailService emailService;
     @Inject
-    private ReportingService reportingService;
+    private ReportingService<Email> reportingService;
 
     @Override
     public String execute(SNSEvent event) {
@@ -34,7 +36,7 @@ public class RequestHandler extends MicronautRequestHandler<SNSEvent, String> {
         this.emailService = emailService;
     }
 
-    void setNotificationReportingService(ReportingService reportingService) {
+    void setNotificationReportingService(ReportingService<Email> reportingService) {
         this.reportingService = reportingService;
     }
 }

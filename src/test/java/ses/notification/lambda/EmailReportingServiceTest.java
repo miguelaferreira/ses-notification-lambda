@@ -16,7 +16,7 @@ import static ses.notification.lambda.reports.BounceEmailReport.BOUNCE_BODY_HEAD
 import static ses.notification.lambda.reports.BounceEmailReport.BOUNCE_REPORT_SUBJECT;
 
 @MicronautTest
-class ReportingServiceTest {
+class EmailReportingServiceTest {
 
     @Inject
     private EmailReportingService service;
@@ -35,4 +35,22 @@ class ReportingServiceTest {
                                                             .contains(REPLY_TO_1_EMAIL_COM)
                                                             .contains(REPLY_TO_2_EMAIL_COM);
     }
+
+    @Test
+    void reportBounce_withMultipleAddresses() {
+        final Email email = service.report(TestDataFactory.bounceNotificationMultipleToAddresses());
+
+        assertThat(email).isNotNull();
+        assertThat(email.getSubject()).isEqualTo(BOUNCE_REPORT_SUBJECT);
+        assertThat(email.getBody().get(BodyType.TEXT)).isPresent();
+        assertThat(email.getBody().get(BodyType.TEXT).get()).contains(BOUNCE_BODY_HEADER)
+                                                            .contains(BOUNCE_BODY_ADDRESS_LIST_HEADER)
+                                                            .contains(TEST_1_EMAIL_COM)
+                                                            .contains(TEST_2_EMAIL_COM)
+                                                            .contains(REPLY_TO_1_EMAIL_COM)
+                                                            .contains(REPLY_TO_2_EMAIL_COM)
+                                                            .contains("Bounce Type: Permanent (General)");
+    }
+
+
 }

@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 @ConfigurationProperties(ReportingConfiguration.PREFIX)
-//@Requires(property = ReportingConfiguration.PREFIX)
 public class ReportingConfiguration {
 
     public static final String PREFIX = "reporting";
