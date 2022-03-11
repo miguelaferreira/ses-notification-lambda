@@ -10,7 +10,9 @@ public class TestDataFactory {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
     public static final String TEST_1_EMAIL_COM = "test1@email.com";
+    public static final String TEST_1_EMAIL_COM_WITH_NAME = String.format("Test 1 <%s>", TEST_1_EMAIL_COM);
     public static final String TEST_2_EMAIL_COM = "test2@email.com";
+    public static final String TEST_2_EMAIL_COM_WITH_NAME = String.format("Test 2 <%s>", TEST_2_EMAIL_COM);
     public static final String TEST_SUBJECT = "Test subject";
     public static final String FROM_1_EMAIL_COM = "from1@email.com";
     public static final String FROM_2_EMAIL_COM = "from2@email.com";
@@ -70,7 +72,7 @@ public class TestDataFactory {
         final SesMessageMail.CommonHeaders commonHeaders = new SesMessageMail.CommonHeaders();
         commonHeaders.setSubject(TEST_SUBJECT);
         commonHeaders.setFrom(List.of(FROM_1_EMAIL_COM, FROM_2_EMAIL_COM));
-        commonHeaders.setTo(List.of(TEST_1_EMAIL_COM));
+        commonHeaders.setTo(List.of(TEST_1_EMAIL_COM_WITH_NAME));
         commonHeaders.setReplyTo(List.of(REPLY_TO_1_EMAIL_COM, REPLY_TO_2_EMAIL_COM));
         mail.setCommonHeaders(commonHeaders);
         message.setMail(mail);
