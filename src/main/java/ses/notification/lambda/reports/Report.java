@@ -5,6 +5,7 @@ import ses.notification.lambda.SesMessageMail;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A SES message report.
@@ -33,8 +34,9 @@ public interface Report<T> {
         if (!to.isEmpty()) {
             sb.append(TO).append(joinStrings(to)).append("\n");
         }
-        final List<String> ccAndBcc = new ArrayList<>(readList(mail.getDestination()));
-        ccAndBcc.removeAll(to);
+        final List<String> ccAndBcc = copyList(mail).stream()
+                                                    .filter(ccAndBCC -> addressNotIncludedIn(ccAndBCC, to))
+                                                    .collect(Collectors.toList());
         if (!ccAndBcc.isEmpty()) {
             sb.append(CC_AND_BCC).append(joinStrings(ccAndBcc)).append("\n");
         }
@@ -44,6 +46,14 @@ public interface Report<T> {
         }
 
         return sb.toString();
+    }
+
+    private static boolean addressNotIncludedIn(String address, List<String> to) {
+        return to.stream().noneMatch(addressWithName -> addressWithName.contains(address));
+    }
+
+    private static ArrayList<String> copyList(SesMessageMail mail) {
+        return new ArrayList<>(readList(mail.getDestination()));
     }
 
     private static String joinStrings(List<String> list) {
