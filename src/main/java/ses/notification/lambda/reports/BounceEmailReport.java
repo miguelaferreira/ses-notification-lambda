@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import ses.notification.lambda.ReportingConfiguration;
 import ses.notification.lambda.SesBounceMessage;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -14,6 +15,8 @@ public class BounceEmailReport extends EmailReport {
     public static final String BOUNCE_DESCRIPTION_HEADER = "Details of this bounce are:\n\n";
     public static final String BOUNCE_BODY_ADDRESS_LIST_HEADER = "The addresses for which the email bounced are:\n";
     public static final String BOUNCE_TYPE = "\tBounce Type: ";
+    public static final String BOUNCED_ADDRESS_ERROR_MESSAGE = ", Error message: ";
+    public static final String NA = "NA";
 
     private String bounceType;
     private String bounceReason;
@@ -40,8 +43,13 @@ public class BounceEmailReport extends EmailReport {
     private static String getListOfBouncedAddresses(SesBounceMessage.Bounce bounce) {
         return bounce.getBouncedRecipients()
                      .stream()
-                     .map(SesBounceMessage.BounceRecipients::getEmailAddress)
-                     .map(address -> "  - " + address)
+                     .map(BounceEmailReport::buildAddressLine)
                      .collect(Collectors.joining("\n"));
+    }
+
+    private static String buildAddressLine(SesBounceMessage.BounceRecipients bounceRecipients) {
+        String diagnosticCode = Objects.requireNonNullElse(bounceRecipients.getDiagnosticCode(), NA);
+        diagnosticCode = diagnosticCode.isBlank() ? NA : diagnosticCode;
+        return "  - Address: " + bounceRecipients.getEmailAddress() + BOUNCED_ADDRESS_ERROR_MESSAGE + diagnosticCode;
     }
 }

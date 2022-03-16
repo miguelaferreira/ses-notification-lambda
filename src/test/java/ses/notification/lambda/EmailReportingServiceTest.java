@@ -12,14 +12,18 @@ import static ses.notification.lambda.TestDataFactory.REPLY_TO_2_EMAIL_COM;
 import static ses.notification.lambda.TestDataFactory.TEST_1_EMAIL_COM;
 import static ses.notification.lambda.TestDataFactory.TEST_1_EMAIL_COM_WITH_NAME;
 import static ses.notification.lambda.TestDataFactory.TEST_2_EMAIL_COM;
+import static ses.notification.lambda.TestDataFactory.THE_ACCOUNT_DOES_NOT_EXIST;
+import static ses.notification.lambda.reports.BounceEmailReport.BOUNCED_ADDRESS_ERROR_MESSAGE;
 import static ses.notification.lambda.reports.BounceEmailReport.BOUNCE_BODY_ADDRESS_LIST_HEADER;
 import static ses.notification.lambda.reports.BounceEmailReport.BOUNCE_BODY_HEADER;
 import static ses.notification.lambda.reports.BounceEmailReport.BOUNCE_DESCRIPTION_HEADER;
 import static ses.notification.lambda.reports.BounceEmailReport.BOUNCE_REPORT_SUBJECT;
+import static ses.notification.lambda.reports.BounceEmailReport.NA;
 import static ses.notification.lambda.reports.Report.CC_AND_BCC;
 import static ses.notification.lambda.reports.Report.REPLY_TO;
 import static ses.notification.lambda.reports.Report.TO;
 
+@SuppressWarnings({"OptionalGetWithoutIsPresent", "ConstantConditions"})
 @MicronautTest
 class EmailReportingServiceTest {
 
@@ -54,7 +58,25 @@ class EmailReportingServiceTest {
                                                             .contains(TO + TEST_1_EMAIL_COM_WITH_NAME)
                                                             .contains(CC_AND_BCC + TEST_2_EMAIL_COM)
                                                             .contains(REPLY_TO + REPLY_TO_1_EMAIL_COM + ", " + REPLY_TO_2_EMAIL_COM)
-                                                            .contains("Bounce Type: Permanent (General)");
+                                                            .contains("Bounce Type: Permanent (General)")
+                                                            .contains(TEST_1_EMAIL_COM + BOUNCED_ADDRESS_ERROR_MESSAGE + THE_ACCOUNT_DOES_NOT_EXIST);
+    }
+
+    @Test
+    void reportBounce_withMultipleAddresses_and_noErrorMessage() {
+        final Email email = service.report(TestDataFactory.bounceNotificationMultipleToAddressesNoDiagnosticsCode());
+
+        assertThat(email).isNotNull();
+        assertThat(email.getSubject()).isEqualTo(BOUNCE_REPORT_SUBJECT);
+        assertThat(email.getBody().get(BodyType.TEXT)).isPresent();
+        assertThat(email.getBody().get(BodyType.TEXT).get()).contains(BOUNCE_BODY_HEADER)
+                                                            .contains(BOUNCE_BODY_ADDRESS_LIST_HEADER)
+                                                            .contains(BOUNCE_DESCRIPTION_HEADER)
+                                                            .contains(TO + TEST_1_EMAIL_COM_WITH_NAME)
+                                                            .contains(CC_AND_BCC + TEST_2_EMAIL_COM)
+                                                            .contains(REPLY_TO + REPLY_TO_1_EMAIL_COM + ", " + REPLY_TO_2_EMAIL_COM)
+                                                            .contains("Bounce Type: Permanent (General)")
+                                                            .contains(TEST_1_EMAIL_COM + BOUNCED_ADDRESS_ERROR_MESSAGE + NA);
     }
 
 
