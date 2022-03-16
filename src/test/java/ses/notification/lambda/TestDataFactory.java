@@ -18,6 +18,7 @@ public class TestDataFactory {
     public static final String FROM_2_EMAIL_COM = "from2@email.com";
     public static final String REPLY_TO_2_EMAIL_COM = "replyto2@email.com";
     public static final String REPLY_TO_1_EMAIL_COM = "replyto1@email.com";
+    public static final String THE_ACCOUNT_DOES_NOT_EXIST = "The account does not exist.";
 
     static SNSEvent snsEvent(SesNotification message) throws JsonProcessingException {
         final SNSEvent event = new SNSEvent();
@@ -63,7 +64,31 @@ public class TestDataFactory {
                                                  .emailAddress(TEST_1_EMAIL_COM)
                                                  .action("failed")
                                                  .status("5.1.1")
-                                                 .diagnosticCode("The account does not exist.")
+                                                 .diagnosticCode(THE_ACCOUNT_DOES_NOT_EXIST)
+                                                 .build()
+        ));
+        message.setBounce(bounce);
+        final SesMessageMail mail = new SesMessageMail();
+        mail.setDestination(List.of(TEST_1_EMAIL_COM, TEST_2_EMAIL_COM));
+        final SesMessageMail.CommonHeaders commonHeaders = new SesMessageMail.CommonHeaders();
+        commonHeaders.setSubject(TEST_SUBJECT);
+        commonHeaders.setFrom(List.of(FROM_1_EMAIL_COM, FROM_2_EMAIL_COM));
+        commonHeaders.setTo(List.of(TEST_1_EMAIL_COM_WITH_NAME));
+        commonHeaders.setReplyTo(List.of(REPLY_TO_1_EMAIL_COM, REPLY_TO_2_EMAIL_COM));
+        mail.setCommonHeaders(commonHeaders);
+        message.setMail(mail);
+
+        return message;
+    }
+
+    static SesBounceMessage bounceNotificationMultipleToAddressesNoDiagnosticsCode() {
+        final SesBounceMessage message = new SesBounceMessage();
+        final SesBounceMessage.Bounce bounce = new SesBounceMessage.Bounce();
+        bounce.setBounceType("Permanent");
+        bounce.setBounceSubType("General");
+        bounce.setBouncedRecipients(List.of(
+                SesBounceMessage.BounceRecipients.builder()
+                                                 .emailAddress(TEST_1_EMAIL_COM)
                                                  .build()
         ));
         message.setBounce(bounce);
