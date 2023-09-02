@@ -59,3 +59,6 @@ gradle-app.setting
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle
 
+.terraform*
+terraform.tfstate*
+*.tfvars
