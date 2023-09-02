@@ -1,16 +1,18 @@
 package ses.notification.lambda;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import io.micronaut.serde.ObjectMapper;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DeserializationServiceTest {
 
-    private final DeserializationService deserializationService = new DeserializationService();
+    private final DeserializationService deserializationService = new DeserializationService(ObjectMapper.getDefault());
 
     @Test
-    void readDeliveryNotification() throws JsonProcessingException {
+    void readDeliveryNotification() throws IOException {
         String notification = ""
                 + "{"
                 + "\"notificationType\": \"Delivery\""
@@ -22,7 +24,7 @@ class DeserializationServiceTest {
     }
 
     @Test
-    void readDeliveryEvent() throws JsonProcessingException {
+    void readDeliveryEvent() throws IOException {
         String notification = ""
                 + "{"
                 + "\"eventType\": \"Delivery\""
@@ -34,7 +36,7 @@ class DeserializationServiceTest {
     }
 
     @Test
-    void readBounceNotification() throws JsonProcessingException {
+    void readBounceNotification() throws IOException {
         String notification = ""
                 + "{"
                 + "\"notificationType\": \"Bounce\""
@@ -46,7 +48,7 @@ class DeserializationServiceTest {
     }
 
     @Test
-    void readBounceEvent() throws JsonProcessingException {
+    void readBounceEvent() throws IOException {
         String notification = "{\n" +
                 "    \"eventType\": \"Bounce\",\n" +
                 "    \"bounce\": {\n" +
@@ -132,7 +134,7 @@ class DeserializationServiceTest {
     }
 
     @Test
-    void readComplaintNotification() throws JsonProcessingException {
+    void readComplaintNotification() throws IOException {
         String notification = ""
                 + "{"
                 + "\"notificationType\": \"Complaint\""

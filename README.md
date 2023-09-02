@@ -16,11 +16,11 @@ email report for each notification. The reports are sent by email using SES.
 ### Create an AWS lambda function
 
 Follow the [AWS Lambda docs](https://docs.aws.amazon.com/lambda/latest/dg/getting-started-create-function.html), select
-a Java 11 (Corretto) runtime, and create an execution role with basic lambda permissions. Edit the execution role to add
+a Java 17 (Corretto) runtime, and create an execution role with basic lambda permissions. Edit the execution role to add
 permissions to send email via SES. Follow
 the [AWS SES docs](https://docs.aws.amazon.com/ses/latest/dg/configure-identities.html) to configure and verify the
 required identities in SES to allow the lambda to send email using SES. Configure the lambda function handler to
-be `ses.notification.lambda.RequestHandler` and two environment variables:
+be `ses.notification.lambda.FunctionRequestHandler` and two environment variables:
 
 - `REPORTING_FROM`: The email address used in the "From" field of the report messages;
 - `REPORTING_TO`: The email address used in the "To" field of the report messages.

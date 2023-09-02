@@ -1,6 +1,7 @@
 package ses.notification.lambda;
 
 import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.Data;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @ToString
 @Introspected
+@Serdeable.Deserializable
 public class SesComplaintMessage implements SesNotification, SesEvent {
 
     private Complaint complaint;
@@ -18,6 +20,7 @@ public class SesComplaintMessage implements SesNotification, SesEvent {
     @Data
     @ToString
     @Introspected
+    @Serdeable.Deserializable
     public static class Complaint {
         private LocalDateTime timestamp;
         private String feedbackId;
@@ -31,6 +34,7 @@ public class SesComplaintMessage implements SesNotification, SesEvent {
     @Data
     @ToString
     @Introspected
+    @Serdeable.Deserializable
     public static class ComplaintRecipients {
         private String emailAddress;
     }

@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RequestHandlerTest {
+public class FunctionRequestHandlerTest {
 
-    private static RequestHandler requestHandler;
+    private static FunctionRequestHandler requestHandler;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -20,7 +20,7 @@ public class RequestHandlerTest {
         final ReportingConfiguration configuration = new ReportingConfiguration();
         configuration.setTo("to@email.com");
         configuration.setFrom("from@email.com");
-        requestHandler = new RequestHandler();
+        requestHandler = new FunctionRequestHandler();
         requestHandler.setEmailService(new MockEmailService());
         requestHandler.setNotificationReportingService(new EmailReportingService(configuration));
     }

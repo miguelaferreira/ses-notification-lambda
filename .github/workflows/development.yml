@@ -22,18 +22,18 @@ jobs:
             ~/.gradle
             ${GITHUB_WORKSPACE}/.gradle
             ~/.sdkman
-          key: development-java11-corretto
+          key: development-java17-graalvm
       - name: "Install Java"
         uses: sdkman/sdkman-action@master
         id: sdkman
         with:
           candidate: java
-          version: 11.0.14.10.1-amzn
+          version: 17.0.8-graalce
       - name: "Setup Java"
         uses: actions/setup-java@v1
         id: setup-java
         with:
-          java-version: 11
+          java-version: 17
           jdkFile: ${{ steps.sdkman.outputs.file }}
       - name: "Gradle build"
         run: ./gradlew build
