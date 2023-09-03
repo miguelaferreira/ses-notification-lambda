@@ -2,6 +2,10 @@ package ses.notification.lambda;
 
 import io.micronaut.serde.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import ses.notification.lambda.aws.SesBounceMessage;
+import ses.notification.lambda.aws.SesComplaintMessage;
+import ses.notification.lambda.aws.SesDeliveryMessage;
+import ses.notification.lambda.aws.SesMessage;
 
 import java.io.IOException;
 

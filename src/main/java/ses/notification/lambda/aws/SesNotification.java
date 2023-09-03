@@ -1,4 +1,4 @@
-package ses.notification.lambda;
+package ses.notification.lambda.aws;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -14,5 +14,5 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
         @JsonSubTypes.Type(value = SesBounceMessage.class, name = "Bounce"),
         @JsonSubTypes.Type(value = SesComplaintMessage.class, name = "Complaint")
 })
-interface SesNotification extends SesMessage {
+public interface SesNotification extends SesMessage {
 }

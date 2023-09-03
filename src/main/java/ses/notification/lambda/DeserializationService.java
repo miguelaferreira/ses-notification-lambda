@@ -1,13 +1,18 @@
 package ses.notification.lambda;
 
 import io.micronaut.serde.ObjectMapper;
+import io.micronaut.serde.annotation.SerdeImport;
 import jakarta.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import ses.notification.lambda.aws.SesEvent;
+import ses.notification.lambda.aws.SesMessage;
+import ses.notification.lambda.aws.SesNotification;
 
 import java.io.IOException;
 
 @Slf4j
 @Singleton
+@SerdeImport(SesMessage.class)
 class DeserializationService {
 
     private final ObjectMapper objectMapper;

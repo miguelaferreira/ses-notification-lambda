@@ -14,4 +14,5 @@
     </root>
 
     <logger name="ses.notification.lambda" level="DEBUG"/>
+    <logger name="io.micronaut.serde" level="TRACE"/>
 </configuration>

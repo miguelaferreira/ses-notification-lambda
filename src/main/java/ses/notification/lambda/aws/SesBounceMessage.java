@@ -1,4 +1,4 @@
-package ses.notification.lambda;
+package ses.notification.lambda.aws;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import ses.notification.lambda.SesMessageMail;
 
 import java.time.LocalDateTime;
 import java.util.List;

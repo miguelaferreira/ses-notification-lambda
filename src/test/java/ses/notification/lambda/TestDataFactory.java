@@ -1,8 +1,12 @@
 package ses.notification.lambda;
 
-import com.amazonaws.services.lambda.runtime.events.SNSEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ses.notification.lambda.aws.SesBounceMessage;
+import ses.notification.lambda.aws.SesNotification;
+import ses.notification.lambda.aws.Sns;
+import ses.notification.lambda.aws.SnsEvent;
+import ses.notification.lambda.aws.SnsEventRecord;
 
 import java.util.List;
 
@@ -20,15 +24,9 @@ public class TestDataFactory {
     public static final String REPLY_TO_1_EMAIL_COM = "replyto1@email.com";
     public static final String THE_ACCOUNT_DOES_NOT_EXIST = "The account does not exist.";
 
-    static SNSEvent snsEvent(SesNotification message) throws JsonProcessingException {
-        final SNSEvent event = new SNSEvent();
-        final SNSEvent.SNSRecord record = new SNSEvent.SNSRecord();
-        final SNSEvent.SNS sns = new SNSEvent.SNS();
-        sns.setMessage(MAPPER.writeValueAsString(message));
-        record.setSns(sns);
-        event.setRecords(List.of(record));
-
-        return event;
+    static SnsEvent snsEvent(SesNotification message) throws JsonProcessingException {
+        final Sns sns = new Sns(MAPPER.writeValueAsString(message));
+        return new SnsEvent(List.of(new SnsEventRecord(sns)));
     }
 
     static SesBounceMessage bounceNotification() {

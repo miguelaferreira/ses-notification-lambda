@@ -2,7 +2,7 @@ package ses.notification.lambda.reports;
 
 import lombok.extern.slf4j.Slf4j;
 import ses.notification.lambda.ReportingConfiguration;
-import ses.notification.lambda.SesBounceMessage;
+import ses.notification.lambda.aws.SesBounceMessage;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
