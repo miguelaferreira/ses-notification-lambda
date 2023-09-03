@@ -1,7 +1,6 @@
 package ses.notification.lambda;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,8 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FunctionRequestHandlerTest {
 
     private static FunctionRequestHandler requestHandler;
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @BeforeAll
     public static void setupServer() {

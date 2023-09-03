@@ -18,9 +18,6 @@ public class BounceEmailReport extends EmailReport {
     public static final String BOUNCED_ADDRESS_ERROR_MESSAGE = ", Error message: ";
     public static final String NA = "NA";
 
-    private String bounceType;
-    private String bounceReason;
-
     public BounceEmailReport(ReportingConfiguration configuration, SesBounceMessage message) {
         super(BOUNCE_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getBounceBody(message));
     }

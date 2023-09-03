@@ -16,7 +16,6 @@ public class TestDataFactory {
     public static final String TEST_1_EMAIL_COM = "test1@email.com";
     public static final String TEST_1_EMAIL_COM_WITH_NAME = String.format("Test 1 <%s>", TEST_1_EMAIL_COM);
     public static final String TEST_2_EMAIL_COM = "test2@email.com";
-    public static final String TEST_2_EMAIL_COM_WITH_NAME = String.format("Test 2 <%s>", TEST_2_EMAIL_COM);
     public static final String TEST_SUBJECT = "Test subject";
     public static final String FROM_1_EMAIL_COM = "from1@email.com";
     public static final String FROM_2_EMAIL_COM = "from2@email.com";

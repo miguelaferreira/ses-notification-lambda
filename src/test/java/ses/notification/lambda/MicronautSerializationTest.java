@@ -16,7 +16,7 @@ public class MicronautSerializationTest {
     @Inject
     private ObjectMapper mapper;
 
-    private String event = """
+    private final String event = """
             {
                 "Records": [
                     {
