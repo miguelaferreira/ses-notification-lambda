@@ -80,9 +80,11 @@ test {
 }
 
 tasks {
-    dockerfile {
-        baseImage = 'amazoncorretto:17-alpine3.18'
-    }
+// TODO: set this configuration once issue https://github.com/micronaut-projects/micronaut-gradle-plugin/issues/820
+//       is solved.
+//    dockerfile {
+//        baseImage = 'amazoncorretto:17-alpine3.18'
+//    }
 
     dockerBuild {
         images = ["${System.env.DOCKER_IMAGE ?: project.name}:$project.version"]

@@ -7,7 +7,10 @@ resource "null_resource" "build_container" {
   provisioner "local-exec" {
     working_dir = dirname(path.cwd)
 
-    command = "DOCKER_IMAGE=${local.container_image} ./gradlew dockerPush"
+    command = "DOCKER_IMAGE=${local.container_image} scripts/dockerBuildAndPush.sh"
+    # TODO: use gradle task dockerPush when issue https://github.com/micronaut-projects/micronaut-gradle-plugin/issues/820
+    #       has been solved.
+    #    command = "DOCKER_IMAGE=${local.container_image} ./gradlew dockerPush"
   }
 
   depends_on = [null_resource.login_ecr]
