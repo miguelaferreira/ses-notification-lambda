@@ -1,6 +1,6 @@
 package ses.notification.lambda.reports;
 
-import ses.notification.lambda.ReportingConfiguration;
+import ses.notification.lambda.OnlineReportingConfiguration;
 import ses.notification.lambda.aws.SesComplaintMessage;
 
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ public class ComplaintEmailReport extends EmailReport {
     public static final String COMPLAINT_BODY_ADDRESS_LIST_HEADER = "The addresses from which we received complaints are:\n";
     public static final String COMPLAINT_TYPE = "\tComplaint Type: ";
 
-    public ComplaintEmailReport(ReportingConfiguration configuration, SesComplaintMessage message) {
+    public ComplaintEmailReport(OnlineReportingConfiguration configuration, SesComplaintMessage message) {
         super(COMPLAINT_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getComplaintBody(message));
     }
 

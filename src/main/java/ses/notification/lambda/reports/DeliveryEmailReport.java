@@ -1,6 +1,6 @@
 package ses.notification.lambda.reports;
 
-import ses.notification.lambda.ReportingConfiguration;
+import ses.notification.lambda.OnlineReportingConfiguration;
 import ses.notification.lambda.aws.SesDeliveryMessage;
 
 import java.util.stream.Collectors;
@@ -11,7 +11,7 @@ public class DeliveryEmailReport extends EmailReport {
     public static final String DELIVERY_BODY_HEADER = "The following email was delivered:\n\n";
     public static final String DELIVERY_BODY_ADDRESS_LIST_HEADER = "The inbox that received it are:\n";
 
-    public DeliveryEmailReport(ReportingConfiguration configuration, SesDeliveryMessage message) {
+    public DeliveryEmailReport(OnlineReportingConfiguration configuration, SesDeliveryMessage message) {
         super(DELIVERY_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getDeliveryBody(message));
     }
 

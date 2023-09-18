@@ -4,10 +4,10 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 import lombok.Data;
 
 @Data
-@ConfigurationProperties(ReportingConfiguration.PREFIX)
-public class ReportingConfiguration {
+@ConfigurationProperties(OnlineReportingConfiguration.PREFIX)
+public class OnlineReportingConfiguration {
 
-    public static final String PREFIX = "reporting";
+    public static final String PREFIX = "online.reporting";
 
     private String from;
     private String to;

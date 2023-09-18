@@ -54,8 +54,8 @@ module "lambda_function" {
 
 
   environment_variables = {
-    REPORTING_FROM = var.email_from
-    REPORTING_TO   = var.email_to
+    ONLINE_REPORTING_FROM = var.email_from
+    ONLINE_REPORTING_TO   = var.email_to
   }
 
   publish                                 = true

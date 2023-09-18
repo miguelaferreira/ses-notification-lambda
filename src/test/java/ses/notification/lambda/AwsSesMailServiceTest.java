@@ -28,15 +28,15 @@ class AwsSesMailServiceTest {
                                                  .region(Region.of(localstack.getRegion()))
                                                  .build();
 
-    private final ReportingConfiguration reportingConfiguration = new ReportingConfiguration();
+    private final OnlineReportingConfiguration onlineReportingConfiguration = new OnlineReportingConfiguration();
     private final AwsSesMailService sesMailService = new AwsSesMailService(sesClient);
 
     @BeforeEach
     void setUpAll() {
         final String from = "from@email.com";
         final String to = "to@email.com";
-        reportingConfiguration.setFrom(from);
-        reportingConfiguration.setTo(to);
+        onlineReportingConfiguration.setFrom(from);
+        onlineReportingConfiguration.setTo(to);
         sesClient.verifyEmailAddress(request -> request.emailAddress(from));
         sesClient.verifyEmailAddress(request -> request.emailAddress(to));
     }
@@ -44,8 +44,8 @@ class AwsSesMailServiceTest {
     @Test
     void sendMail() {
         final Email build = Email.builder()
-                                 .from(reportingConfiguration.getFrom())
-                                 .to(reportingConfiguration.getTo())
+                                 .from(onlineReportingConfiguration.getFrom())
+                                 .to(onlineReportingConfiguration.getTo())
                                  .subject("Test email")
                                  .body("This is a test!")
                                  .build();

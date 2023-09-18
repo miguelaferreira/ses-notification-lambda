@@ -8,10 +8,25 @@ An AWS Lambda function to process SES notifications and report them via email. S
 notifications for email events (e.g. bounced emails) in order to monitor email delivery. These notifications are JSON
 objects that are either delivered to an email address, or to an SNS topic. When the notifications are delivered to an
 SNS topic it is possible to have them processed by a lambda function. The ses-notification-lambda in this repository
-does just that. It parses the SNS events, extracts the container SES notifications, parses them and then creates an
-email report for each notification. The reports are sent by email using SES.
+does just that. It parses the SNS events, extracts the contained SES notifications, parses them and then generates
+email reports. The reports are sent by email using SES.
 
 ## How to use
+
+This AWS Lambda function allows for two types of notification reports:
+
+- on-line (immediate) report for any notification processed;
+- off-line (delayed) report with all the notifications since the last report.
+
+These two modes can be configured in combination or separately. The off-line reporting requires a more
+infrastructure to implement, because the function needs to persist state in order to remember past notifications and
+which have been already reported on. This mode also requires an additional trigger for the function, typically at a
+regular interval.
+
+### Download a release
+
+Download a release from the [releases page](https://github.com/miguelaferreira/ses-notification-lambda/releases).
+The deployable for the lambda is the jar with all dependencies (named after `ses-notification-lambda-vA.B.C-all.jar`).
 
 ### Create an AWS lambda function
 
@@ -20,18 +35,18 @@ a Java 17 (Corretto) runtime, and create an execution role with basic lambda per
 permissions to send email via SES. Follow
 the [AWS SES docs](https://docs.aws.amazon.com/ses/latest/dg/configure-identities.html) to configure and verify the
 required identities in SES to allow the lambda to send email using SES. Configure the lambda function handler to
-be `ses.notification.lambda.FunctionRequestHandler` and two environment variables:
+be `ses.notification.lambda.FunctionRequestHandler`.
 
-- `REPORTING_FROM`: The email address used in the "From" field of the report messages;
-- `REPORTING_TO`: The email address used in the "To" field of the report messages.
+#### On-line reporting configuration
+
+For on-line reporting, where the function sends out a report email for each SES notification it processes, the
+function needs two environment variables:
+
+- `ONLINE_REPORTING_FROM`: The email address used in the "From" field of the report messages;
+- `ONLINE_REPORTING_TO`: The email address used in the "To" field of the report messages.
 
 The from and to addresses have to be verified in SES (either by verifying a domain, or the addresses), and can even be
 the same.
-
-### Download a release
-
-Download a release from the [releases page](https://github.com/miguelaferreira/ses-notification-lambda/releases).
-The deployable for the lambda is the jar with all dependencies (named after `ses-notification-lambda-vA.B.C-all.jar`).
 
 ### Deploy the lambda function
 

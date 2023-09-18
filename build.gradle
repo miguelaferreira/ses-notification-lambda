@@ -75,8 +75,8 @@ micronaut {
 test {
     // Load environment variables for tests
     environment "AWS_PROFILE", System.getenv('AWS_PROFILE')
-    environment "REPORTING_FROM", System.getenv('REPORTING_FROM')
-    environment "REPORTING_TO", System.getenv('REPORTING_TOS')
+    environment "ONLINE_REPORTING_FROM", System.getenv('ONLINE_REPORTING_FROM')
+    environment "ONLINE_REPORTING_TO", System.getenv('ONLINE_REPORTING_TO')
 }
 
 tasks {

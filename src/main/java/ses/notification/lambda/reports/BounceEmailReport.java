@@ -1,7 +1,7 @@
 package ses.notification.lambda.reports;
 
 import lombok.extern.slf4j.Slf4j;
-import ses.notification.lambda.ReportingConfiguration;
+import ses.notification.lambda.OnlineReportingConfiguration;
 import ses.notification.lambda.aws.SesBounceMessage;
 
 import java.util.Objects;
@@ -18,7 +18,7 @@ public class BounceEmailReport extends EmailReport {
     public static final String BOUNCED_ADDRESS_ERROR_MESSAGE = ", Error message: ";
     public static final String NA = "NA";
 
-    public BounceEmailReport(ReportingConfiguration configuration, SesBounceMessage message) {
+    public BounceEmailReport(OnlineReportingConfiguration configuration, SesBounceMessage message) {
         super(BOUNCE_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getBounceBody(message));
     }
 

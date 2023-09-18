@@ -15,10 +15,10 @@ import ses.notification.lambda.reports.ReportingService;
 @Singleton
 public class EmailReportingService implements ReportingService<Email> {
 
-    private final ReportingConfiguration configuration;
+    private final OnlineReportingConfiguration configuration;
 
     @Inject
-    public EmailReportingService(ReportingConfiguration configuration) {
+    public EmailReportingService(OnlineReportingConfiguration configuration) {
         this.configuration = configuration;
     }
 
