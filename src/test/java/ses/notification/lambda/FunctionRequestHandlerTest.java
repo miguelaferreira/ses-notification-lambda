@@ -15,9 +15,7 @@ public class FunctionRequestHandlerTest {
 
     @BeforeAll
     public static void setupServer() {
-        final OnlineReportingConfiguration configuration = new OnlineReportingConfiguration();
-        configuration.setTo("to@email.com");
-        configuration.setFrom("from@email.com");
+        final OnlineReportingConfiguration configuration = new OnlineReportingConfiguration("from@email.com", "to@email.com");
         requestHandler = new FunctionRequestHandler();
         requestHandler.setEmailService(new MockEmailService());
         requestHandler.setNotificationReportingService(new EmailReportingService(configuration));

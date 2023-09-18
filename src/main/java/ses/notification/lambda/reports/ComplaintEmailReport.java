@@ -14,7 +14,7 @@ public class ComplaintEmailReport extends EmailReport {
     public static final String COMPLAINT_TYPE = "\tComplaint Type: ";
 
     public ComplaintEmailReport(OnlineReportingConfiguration configuration, SesComplaintMessage message) {
-        super(COMPLAINT_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getComplaintBody(message));
+        super(COMPLAINT_REPORT_SUBJECT, configuration.from(), configuration.to(), getComplaintBody(message));
     }
 
 

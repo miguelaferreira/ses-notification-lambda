@@ -1,14 +1,9 @@
 package ses.notification.lambda;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
-import lombok.Data;
 
-@Data
 @ConfigurationProperties(OnlineReportingConfiguration.PREFIX)
-public class OnlineReportingConfiguration {
+public record OnlineReportingConfiguration(String from, String to) {
 
     public static final String PREFIX = "online.reporting";
-
-    private String from;
-    private String to;
 }

@@ -12,7 +12,7 @@ public class DeliveryEmailReport extends EmailReport {
     public static final String DELIVERY_BODY_ADDRESS_LIST_HEADER = "The inbox that received it are:\n";
 
     public DeliveryEmailReport(OnlineReportingConfiguration configuration, SesDeliveryMessage message) {
-        super(DELIVERY_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getDeliveryBody(message));
+        super(DELIVERY_REPORT_SUBJECT, configuration.from(), configuration.to(), getDeliveryBody(message));
     }
 
     private static String getDeliveryBody(SesDeliveryMessage message) {

@@ -19,7 +19,7 @@ public class BounceEmailReport extends EmailReport {
     public static final String NA = "NA";
 
     public BounceEmailReport(OnlineReportingConfiguration configuration, SesBounceMessage message) {
-        super(BOUNCE_REPORT_SUBJECT, configuration.getFrom(), configuration.getTo(), getBounceBody(message));
+        super(BOUNCE_REPORT_SUBJECT, configuration.from(), configuration.to(), getBounceBody(message));
     }
 
     private static String getBounceBody(SesBounceMessage notification) {

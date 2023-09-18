@@ -19,6 +19,8 @@ class AwsSesMailServiceTest {
 
     @Container
     private static final LocalStackContainer localstack = new LocalStackContainer(LOCALSTACK_IMAGE).withServices(LocalStackContainer.Service.SES);
+    public static final String FROM = "from@email.com";
+    public static final String TO = "to@email.com";
 
     private final SesClient sesClient = SesClient.builder()
                                                  .endpointOverride(localstack.getEndpointOverride(LocalStackContainer.Service.SES))
@@ -28,24 +30,20 @@ class AwsSesMailServiceTest {
                                                  .region(Region.of(localstack.getRegion()))
                                                  .build();
 
-    private final OnlineReportingConfiguration onlineReportingConfiguration = new OnlineReportingConfiguration();
+    private final OnlineReportingConfiguration onlineReportingConfiguration = new OnlineReportingConfiguration(FROM, TO);
     private final AwsSesMailService sesMailService = new AwsSesMailService(sesClient);
 
     @BeforeEach
     void setUpAll() {
-        final String from = "from@email.com";
-        final String to = "to@email.com";
-        onlineReportingConfiguration.setFrom(from);
-        onlineReportingConfiguration.setTo(to);
-        sesClient.verifyEmailAddress(request -> request.emailAddress(from));
-        sesClient.verifyEmailAddress(request -> request.emailAddress(to));
+        sesClient.verifyEmailAddress(request -> request.emailAddress(FROM));
+        sesClient.verifyEmailAddress(request -> request.emailAddress(TO));
     }
 
     @Test
     void sendMail() {
         final Email build = Email.builder()
-                                 .from(onlineReportingConfiguration.getFrom())
-                                 .to(onlineReportingConfiguration.getTo())
+                                 .from(onlineReportingConfiguration.from())
+                                 .to(onlineReportingConfiguration.to())
                                  .subject("Test email")
                                  .body("This is a test!")
                                  .build();

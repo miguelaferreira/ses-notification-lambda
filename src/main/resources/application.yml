@@ -6,3 +6,9 @@ online:
   reporting:
     from: "test-source@email.com"
     to: "test-tagret@email.com"
+
+offline:
+  reporting:
+    from: "test-source@email.com"
+    to: "test-tagret@email.com"
+  backend: dynamoDb
