@@ -1,6 +1,6 @@
 package ses.notification.lambda.reports;
 
-import ses.notification.lambda.SesMessage;
+import ses.notification.lambda.aws.SesMessage;
 
 /**
  * A service that produces reports off type {@code T} for a given {@code SesMessage}.

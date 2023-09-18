@@ -1,11 +1,13 @@
-package ses.notification.lambda;
+package ses.notification.lambda.aws;
 
 import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import ses.notification.lambda.SesMessageMail;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 @Data
 @ToString
 @Introspected
+@Serdeable.Deserializable
 public class SesBounceMessage implements SesNotification, SesEvent {
 
     private Bounce bounce;
@@ -21,6 +24,7 @@ public class SesBounceMessage implements SesNotification, SesEvent {
     @Data
     @ToString
     @Introspected
+    @Serdeable.Deserializable
     public static class Bounce {
         private LocalDateTime timestamp;
         private String feedbackId;
@@ -33,10 +37,11 @@ public class SesBounceMessage implements SesNotification, SesEvent {
 
     @Data
     @ToString
-    @Builder(builderClassName = "Builder")
+    @Introspected
     @NoArgsConstructor
     @AllArgsConstructor
-    @Introspected
+    @Serdeable.Deserializable
+    @Builder(builderClassName = "Builder")
     public static class BounceRecipients {
         private String emailAddress;
         private String action;

@@ -1,26 +1,24 @@
 package ses.notification.lambda;
 
-import com.amazonaws.services.lambda.runtime.events.SNSEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import ses.notification.lambda.aws.SesBounceMessage;
+import ses.notification.lambda.aws.SnsEvent;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RequestHandlerTest {
+public class FunctionRequestHandlerTest {
 
-    private static RequestHandler requestHandler;
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static FunctionRequestHandler requestHandler;
 
     @BeforeAll
     public static void setupServer() {
         final ReportingConfiguration configuration = new ReportingConfiguration();
         configuration.setTo("to@email.com");
         configuration.setFrom("from@email.com");
-        requestHandler = new RequestHandler();
+        requestHandler = new FunctionRequestHandler();
         requestHandler.setEmailService(new MockEmailService());
         requestHandler.setNotificationReportingService(new EmailReportingService(configuration));
     }
@@ -35,7 +33,7 @@ public class RequestHandlerTest {
     @Test
     public void testHandler() throws JsonProcessingException {
         final SesBounceMessage notification = TestDataFactory.bounceNotification();
-        final SNSEvent event = TestDataFactory.snsEvent(notification);
+        final SnsEvent event = TestDataFactory.snsEvent(notification);
 
         String result = requestHandler.execute(event);
         assertThat(result).isEqualTo("Done");

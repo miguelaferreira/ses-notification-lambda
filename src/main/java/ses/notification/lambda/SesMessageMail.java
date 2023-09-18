@@ -2,6 +2,7 @@ package ses.notification.lambda;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.Data;
 import lombok.ToString;
 
@@ -11,9 +12,9 @@ import java.util.List;
 @Data
 @ToString
 @Introspected
+@Serdeable.Deserializable
 @JsonIgnoreProperties(ignoreUnknown = true)
-public
-class SesMessageMail {
+public class SesMessageMail {
 
     private LocalDateTime timestamp;
     private String source;
@@ -29,6 +30,7 @@ class SesMessageMail {
     @Data
     @ToString
     @Introspected
+    @Serdeable.Deserializable
     static class Header {
         private String name;
         private String value;
@@ -37,6 +39,7 @@ class SesMessageMail {
     @Data
     @ToString
     @Introspected
+    @Serdeable.Deserializable
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class CommonHeaders {
         private String subject;

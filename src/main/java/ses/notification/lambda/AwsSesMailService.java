@@ -8,6 +8,8 @@ import io.micronaut.email.Contact;
 import io.micronaut.email.Email;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.services.ses.SesClient;
 import software.amazon.awssdk.services.ses.model.Body;
@@ -17,8 +19,6 @@ import software.amazon.awssdk.services.ses.model.Message;
 import software.amazon.awssdk.services.ses.model.SendEmailRequest;
 import software.amazon.awssdk.services.ses.model.SendEmailResponse;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -34,6 +34,7 @@ public class AwsSesMailService implements EmailService {
     }
 
     @Override
+    // TODO: review double use of not null annotation
     public void send(@NonNull @NotNull @Valid Email email) {
         assert email.getTo() != null;
         assert email.getBody() != null;

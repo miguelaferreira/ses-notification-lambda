@@ -1,7 +1,7 @@
 package ses.notification.lambda.reports;
 
 import ses.notification.lambda.ReportingConfiguration;
-import ses.notification.lambda.SesComplaintMessage;
+import ses.notification.lambda.aws.SesComplaintMessage;
 
 import java.util.stream.Collectors;
 
