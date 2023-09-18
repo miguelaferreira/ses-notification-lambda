@@ -6,16 +6,16 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @Requires(condition = CIAwsRegionProviderChainCondition.class)
 @Requires(condition = CIAwsCredentialsProviderChainCondition.class)
-@Requires(beans = {DynamoConfiguration.class, DynamoDbClient.class})
+@Requires(beans = {DynamoDbConfiguration.class, DynamoDbClient.class})
 @Singleton
 public class DynamoRepository {
 
     private final DynamoDbClient dynamoDbClient;
-    private final DynamoConfiguration dynamoConfiguration;
+    private final DynamoDbConfiguration dynamoDbConfiguration;
 
     public DynamoRepository(DynamoDbClient dynamoDbClient,
-                            DynamoConfiguration dynamoConfiguration) {
+                            DynamoDbConfiguration dynamoDbConfiguration) {
         this.dynamoDbClient = dynamoDbClient;
-        this.dynamoConfiguration = dynamoConfiguration;
+        this.dynamoDbConfiguration = dynamoDbConfiguration;
     }
 }

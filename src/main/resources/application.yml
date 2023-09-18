@@ -12,3 +12,5 @@ offline:
     from: "test-source@email.com"
     to: "test-tagret@email.com"
   backend: dynamoDb
+
+dynamodb.table-name: ses-notification-lambda
